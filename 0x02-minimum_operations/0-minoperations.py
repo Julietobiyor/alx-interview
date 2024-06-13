@@ -1,22 +1,30 @@
 #!/usr/bin/python3
-'''Interview Challenge module
-'''
+"""
+Minimum Operations
+"""
+
+import math
+
+
+def factors(n):
+    """factors of n number"""
+    mylist = []
+    while n % 2 == 0:
+        mylist.append(2)
+        n = n / 2
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
+        while n % i == 0:
+            mylist.append(i)
+            n = n / i
+    if n > 2:
+        mylist.append(n)
+    return mylist
 
 
 def minOperations(n):
-    '''finds no of time opertion is performed
-    '''
-    if not isinstance(n, int) or n < 0 or n == 1:
+    """calculate the minimum operations"""
+    if type(n) != int or n < 2:
         return 0
-    var = 'H'
-    count = 0
-    dup = ''
-    while len(var) < n:
-        if n % len(var) != 0:
-            var += dup
-            count += 1
-        else:
-            dup = var
-            var += dup
-            count += 2
-    return (count if len(var) == n else 0)
+    else:
+        numOperations = sum(factors(n))
+        return int(numOperations)
